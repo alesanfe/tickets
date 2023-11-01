@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
+import re
 from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
@@ -19,7 +20,7 @@ def login_view(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('home')
+            return render(request, 'tickets/home.html')
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
@@ -28,19 +29,17 @@ def login_view(request):
 # Vista para cerrar sesión
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return render(request, 'tickets/home.html')
 
 
 # Vista para registro de usuario
 def signin_view(request):
     if request.method == 'POST':
-        print(request.POST)
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.verify_email = False
-            user.save()
 
+            '''
             # Generar el token único
             token = default_token_generator.make_token(user)
 
@@ -56,14 +55,34 @@ def signin_view(request):
                 'domain': current_site.domain,
                 'verify_url': verify_url,
             })
+            '''
 
-            if '@us.es' in user.email:
-                send_mail(mail_subject, message, 'noreply@example.com', [user.email])
-            return redirect('home')
-        print(form.error_messages)
+            if '@us.es' in user.email and validate_email(user.email):
+                user.verify_email = True # No se va a implementar el verificado.
+                user.save()
+                login(request, form.get_user())
+                # print("hola")
+                # send_mail(mail_subject, message, 'm4570d0n73@gmail.com', [user.email])
+                return render(request, 'tickets/home.html', {'message': 'Verificación de correo electrónico', 'status': 'Success'})
+            else:
+                user.verify_email = False  # No se va a implementar el verificado.
+                user.save()
+                login(request, form.get_user())
+                # print("hola")
+                # send_mail(mail_subject, message, 'm4570d0n73@gmail.com', [user.email])
+                return render(request, 'tickets/home.html',
+                              {'message': 'Verificación de correo electrónico', 'status': 'Success'})
     else:
         form = CustomUserCreationForm()
     return render(request, 'registration/signin.html', {'form': form})
+
+def validate_email(email):
+    patron = r'^[\w\.-]+@[\w\.-]+\.\w+$'
+    if re.match(patron, email):
+        return True
+    else:
+        return False
+
 
 
 def verify_email(request, uidb64, token):
