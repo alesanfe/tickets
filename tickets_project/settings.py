@@ -19,13 +19,6 @@ AUTH_USER_MODEL = 'user_management.User'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'm4570d0n73@gmail.com'
-EMAIL_HOST_PASSWORD = '# Fufa 1234'
-
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -40,7 +33,6 @@ ALLOWED_HOSTS = []
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
 
 # Application definition
 
@@ -91,13 +83,14 @@ WSGI_APPLICATION = 'tickets_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if not DEBUG:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default='postgresql://postgres:postgres@localhost/postgres',
-            conn_max_age=600
-        )
-    }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgres://tickets_xs3l_user:7IIIpguapKFOmjz6HUrNVnj5iSU96mAC@dpg-cl12jtis1bgc73e2bl3g-a.oregon-postgres.render.com/tickets_xs3l',
+        conn_max_age=600
+    )
+}
+'''
 else:
     DATABASES = {
         'default': {
@@ -105,7 +98,7 @@ else:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -125,7 +118,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -136,7 +128,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -158,4 +149,3 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Define la ubicación de los archivos estáticos recopilados
-
