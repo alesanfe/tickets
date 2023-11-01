@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Detalles de Ticket{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2 class="mb-4">Detalles de Ticket</h2>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Título:</h5>
+                    <p class="card-text">{{ ticket.title }}</p>
+                </div>
+            </div>
+            {% if request.user.is_superuser %}
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h5 class="card-title">UUID:</h5>
+                        <p class="card-text" id="uuid">{{ ticket.uuid }}</p>
+                    </div>
+                </div>
+            {% endif %}
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Estado:</h5>
+                    <p class="card-text">{{ ticket.status }}</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Fecha de Ticket:</h5>
+                    <p class="card-text">{{ ticket.ticket_date }}</p>
+                </div>
+            </div>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <h5 class="card-title">Fecha de Finalización:</h5>
+                    <p class="card-text">{{ ticket.finish_date }}</p>
+                </div>
+            </div>
+            {% if ticket.status == 'Not Used' and ticket.user != None %}
+                <img src="data:image/png;base64,{{ qrcode }}" alt="Código QR">
+            {% endif %}
+            {% if request.user.is_superuser %}
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">Asignar Ticket</div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="user">Usuario</label>
+                                        <select class="form-control" id="user" name="user">
+                                            {% for user in users %}
+                                                <option value="{{ user.id }}">{{ user.username }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <a id="user-link" href="#" class="btn btn-primary mt-3">Enlace</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            <a href="{% url 'all' %}" class="btn btn-primary mt-3">Volver a la Lista</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+
+    <script>
+        // Obtener el elemento select y el enlace
+        const select = document.getElementById('user');
+        const link = document.getElementById('user-link');
+
+        // Escuchar el evento de cambio en el select
+        select.addEventListener('change', function () {
+            // Obtener el valor seleccionado
+            const selectedValue = select.value;
+            const uuid = document.getElementById('uuid').innerHTML;
+            // Actualizar el atributo href del enlace con el valor seleccionado
+            console.log(selectedValue)
+            link.href = '/tickets/assign/' + uuid + '/' + selectedValue;
+        });
+    </script>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+header {
+    background-color: #343a40;
+    color: #fff;
+    padding: 1.25rem 0; /* 20px */
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 1.25rem; /* 20px */
+}
+
+main {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 1.25rem; /* 20px */
+    border-radius: 0.3125rem; /* 5px */
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.1); /* 10px */
+}
+
+footer {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 0.625rem 0; /* 10px */
+    margin-top: auto;
+}
+
+/* Estilos para el enlace del logo */
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Quitar el subrayado del enlace */
+    color: inherit;
+}
+
+/* Estilos para el logo */
+.logo {
+    width: 40px; /* Ajusta el ancho según el tamaño deseado */
+    height: auto; /* Esto mantiene la proporción original de la imagen */
+    margin-right: 10px; /* Espacio entre el logo y el texto */
+    transition: opacity 0.3s; /* Animación de transición */
+}
+
+/* Cambia la opacidad al pasar el cursor sobre el enlace */
+.logo-link:hover .logo {
+    opacity: 0.7; /* Opacidad al pasar el cursor */
+    text-decoration: none; /* Opcional: quitar el subrayado al pasar el cursor */
+}
+

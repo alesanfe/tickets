@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Título predeterminado{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <!-- Enlaza tu archivo CSS personalizado aquí -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Agrega Bootstrap para estilos adicionales -->
+    <style>
+
+    </style>
+</head>
+
+<body>
+<header class="bg-dark text-light py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <a href="#" class="logo-link"><img src="{% static 'img/logo.png' %}"
+                                                   alt="Logo" class="logo">Tickets</a>
+            </div>
+
+            <div class="col text-right">
+                <nav class="navbar navbar-expand-lg navbar-dark">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'all' %}">Tickets</a>
+                                </li>
+                                {% if user.is_superuser %}
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'unassigned' %}">Sin Asignar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{% url 'create' %}">Crear Tickets</a>
+                                    </li>
+                                {% endif %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'logout' %}">Cerrar Sesión</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'signin' %}">Registrarse</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'login' %}">Iniciar Sesión</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="py-5">
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</main>
+
+<footer class="bg-dark text-light py-3 mt-auto">
+    <div class="container">
+        <p class="text-center">&copy; {{ year|date:"Y" }} Tickets</p>
+    </div>
+</footer>
+
+
+<!-- Agrega enlaces a scripts de JavaScript si es necesario -->
+{% if message %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: '{% if status == 'Success' %}success{% else %}error{% endif %}',
+            title: 'Mensaje',
+            text: '{{ message }}',
+            confirmButtonText: 'Aceptar'
+        });
+    </script>
+{% endif %}
+
+{% block scripts %}
+{% endblock %}
+</body>
+
+
+</html>
+
+
+

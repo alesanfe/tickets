@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Historial de Tickets{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col">
+        <h2 class="mb-4">Mis Tickets</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    {% if request.user.is_superuser %}
+                        <th scope="col">Usuario</th>
+                        <th scope="col">UUID</th>
+                    {% endif %}
+                    <th scope="col">Título</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha de Ticket</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    {% if request.user.is_superuser %}
+                        <td>{{ ticket.user.username }}</td>
+                        <td>{{ ticket.uuid }}</td>
+                    {% endif %}
+                    <td>{{ ticket.title }}</td>
+                    <td>{{ ticket.description }}</td>
+                    <td>{{ ticket.ticket_date }}</td>
+                    <td>{{ ticket.status }}</td>
+                    <td>
+                        <!-- Enlace a la página de detalles con el ID del ticket como parámetro -->
+                        <a href="{% url 'details' ticket.uuid %}" class="btn btn-sm btn-primary">Detalles</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'home' %}" class="btn btn-primary">Volver al Inicio</a>
+    </div>
+</div>
+{% endblock %}
+
+

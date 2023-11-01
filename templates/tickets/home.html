@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Tickets{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2 class="mb-4">Solicitar Ticket</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="ticket_id">UUID del Ticket:</label>
+                <input type="text" class="form-control" id="ticket_id" name="ticket_id" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Solicitar</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+

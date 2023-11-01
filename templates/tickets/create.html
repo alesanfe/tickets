@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Creación de Tickets{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Create Ticket</div>
+                    <div class="card-body">
+                        <form method="post" class="ticket-form">
+                            {% csrf_token %}
+                            {% if form.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>Error:</strong> Please correct the following errors.
+                                </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label for="num_tickets">Number of tickets: </label><input class="form-control" name="num_tickets"
+                                                                        id="num_tickets" type="text"
+                                                                        value="{{ form.name.value }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.title.id_for_label }}">Title:</label>
+                                {{ form.title }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.description.id_for_label }}">Description:</label>
+                                {{ form.description }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.ticket_date.id_for_label }}">Ticket Date:</label>
+                                {{ form.ticket_date }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.status.id_for_label }}">Status:</label>
+                                {{ form.status }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.finish_date.id_for_label }}">Finish Date:</label>
+                                {{ form.finish_date }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.type_ticket.id_for_label }}">Type Ticket:</label>
+                                {{ form.type_ticket }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Create Ticket</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script>
+        $(function () {
+            $("#id_ticket_date").datepicker();
+            $("#id_finish_date").datepicker();
+        });
+    </script>
+{% endblock %}
