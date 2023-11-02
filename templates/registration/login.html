@@ -22,7 +22,7 @@
                 {% if form.username.errors %}
                   <ul class="errorlist">
                     {% for error in form.username.errors %}
-                      <li>{{ error }}</li>
+                      <li class="error-item">{{ error }}</li>
                     {% endfor %}
                   </ul>
                 {% endif %}
@@ -33,7 +33,7 @@
                 {% if form.password.errors %}
                   <ul class="errorlist">
                     {% for error in form.password.errors %}
-                      <li>{{ error }}</li>
+                      <li class="error-item">{{ error }}</li>
                     {% endfor %}
                   </ul>
                 {% endif %}
