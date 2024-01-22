@@ -1,58 +1,23 @@
 name: Bug Report
 description: File a bug report
 title: "[Bug]: "
-labels: ["bug", "triage me"]
+labels: ["bug", "triage"]
+projects: ["octo-org/1", "octo-org/44"]
+assignees:
+  - octocat
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
-  - type: checkboxes
+  - type: input
+    id: contact
     attributes:
-      label: Is there an existing issue for this?
-      description: Please search to see if an issue already exists for the bug you encountered.
-      options:
-      - label: I have searched the existing issues
-        required: true
-  - type: checkboxes
-    attributes:
-      label: Is there a StackOverflow question about this issue?
-      description: Please search [StackOverflow](https://stackoverflow.com/questions/tagged/android-jetpack-compose) if an issue with an answer already exists for the bug you encountered.
-      options:
-      - label: I have searched StackOverflow
-        required: true
-  - type: checkboxes
-    attributes:
-      label: Is this an issue related to one of the samples?
-      description: Please confirm that this is an issue related to this sample repo. If this is a bug related to Compose, file an issue on the Compose [issue tracker](https://issuetracker.google.com/issues/new?component=612128) instead.
-      options:
-      - label: Yes, this is a specific issue related to this samples repo.
-        required: true
-  - type: dropdown  # Added dropdown field for severity
-    id: severity
-    attributes:
-      label: Severity
-      description: Please select the severity level of the bug
-      options:
-        - Bajo
-        - Medio
-        - Grave
-      required: true
-  - type: dropdown  # Sample app dropdown remains unchanged
-    id: sample-app
-    attributes:
-      label: Sample app
-      description: What sample app did you encounter a bug on?
-      options:
-        - Crane
-        - JetNews
-        - Jetcaster
-        - Jetchat
-        - Jetsnack
-        - Jetsurvey
-        - Owl
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
     validations:
-      required: true
+      required: false
   - type: textarea
     id: what-happened
     attributes:
@@ -62,25 +27,39 @@ body:
       value: "A bug happened!"
     validations:
       required: true
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: What version of our software are you running?
+      options:
+        - 1.0.2 (Default)
+        - 1.0.3 (Edge)
+      default: 0
+    validations:
+      required: true
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
   - type: textarea
     id: logs
     attributes:
-      label: Relevant logcat output
-      description: Please copy and paste any relevant logcat output. This will be automatically formatted into code, so no need for backticks.
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
   - type: checkboxes
     id: terms
     attributes:
       label: Code of Conduct
-      description: By submitting this issue, you agree to follow our [Code of Conduct](CODE_OF_CONDUCT.md)
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
-  - type: output
-    id: severity-label
-    attributes:
-      label: "Automatically added label"
-      value: |
-        <!-- Add a label based on the selected severity -->
-        labels:
-          - "{{inputs.severity}}"
+
