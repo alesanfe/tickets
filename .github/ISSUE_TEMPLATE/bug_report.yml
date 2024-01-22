@@ -48,6 +48,16 @@ body:
         - Chrome
         - Safari
         - Microsoft Edge
+  - type: select  # Cambiado de dropdown a select
+    id: severity
+    attributes:
+      label: Severity
+      description: Please select the severity level of the bug
+      options:
+        - Bajo
+        - Medio
+        - Grave
+      required: true
   - type: textarea
     id: logs
     attributes:
@@ -62,4 +72,13 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+  - type: output
+    id: severity-label
+    attributes:
+      label: "Automatically added label"
+      value: |
+        <!-- Add a label based on the selected severity -->
+        labels:
+          - "{{inputs.severity}}"
+
 
