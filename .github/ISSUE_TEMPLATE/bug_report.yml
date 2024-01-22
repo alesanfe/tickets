@@ -27,7 +27,7 @@ body:
       value: "A bug happened!"
     validations:
       required: true
-  - type: dropdown  # Keep dropdown for severity selection
+  - type: dropdown
     id: severity
     attributes:
       label: Severity
@@ -36,7 +36,6 @@ body:
         - Bajo
         - Medio
         - Grave
-      required: true
   - type: dropdown
     id: version
     attributes:
@@ -71,15 +70,17 @@ body:
       description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
       options:
         - label: I agree to follow this project's Code of Conduct
-          required: true
-  - type: output
+  - type: checkboxes
     id: severity-label
     attributes:
       label: "Automatically added label"
-      value: |
-        <!-- Add a label based on the selected severity -->
-        labels:
-          - "{{inputs.severity}}"
-
+      description: Add label based on the selected severity
+      options:
+        - label: "Label: Bajo"
+          condition: '{{inputs.severity == "Bajo"}}'
+        - label: "Label: Medio"
+          condition: '{{inputs.severity == "Medio"}}'
+        - label: "Label: Grave"
+          condition: '{{inputs.severity == "Grave"}}'
 
 
