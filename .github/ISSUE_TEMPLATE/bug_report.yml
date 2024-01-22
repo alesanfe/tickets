@@ -71,13 +71,6 @@ body:
       description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
       options:
         - label: I agree to follow this project's Code of Conduct
-  - type: output
-    id: browser-labels
-    attributes:
-      label: "Automatically added labels"
-      value: |
-        <!-- GitHub Action will add labels based on the selected browsers -->
-
 
 
 
