@@ -1,0 +1,27 @@
+name: Add Labels
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add-labels:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set labels based on severity
+        run: |
+          if [[ ${{ github.event.issue.labels[0].name }} == "Bajo" ]]; then
+            echo "Label: Bajo"
+            # Use GitHub API to add the label "Bajo" to the issue
+          elif [[ ${{ github.event.issue.labels[0].name }} == "Medio" ]]; then
+            echo "Label: Medio"
+            # Use GitHub API to add the label "Medio" to the issue
+          elif [[ ${{ github.event.issue.labels[0].name }} == "Grave" ]]; then
+            echo "Label: Grave"
+            # Use GitHub API to add the label "Grave" to the issue
+          fi
