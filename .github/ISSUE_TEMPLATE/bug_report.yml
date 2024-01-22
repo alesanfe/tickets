@@ -70,17 +70,6 @@ body:
       description: By submitting this issue, you agree to follow our [Code of Conduct](https://example.com)
       options:
         - label: I agree to follow this project's Code of Conduct
-  - type: checkboxes
-    id: severity-label
-    attributes:
-      label: "Automatically added label"
-      description: Add label based on the selected severity
-      options:
-        - label: "Label: Bajo"
-          condition: '{{inputs.severity == "Bajo"}}'
-        - label: "Label: Medio"
-          condition: '{{inputs.severity == "Medio"}}'
-        - label: "Label: Grave"
-          condition: '{{inputs.severity == "Grave"}}'
+
 
 
